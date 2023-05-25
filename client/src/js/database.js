@@ -17,8 +17,7 @@ export const putDb = async (content) => {
     const jate = await openDB('jate', 1)
     const transaction = jate.transaction('jate', 'readwrite')
     const store = transaction.objectStore('jate')
-    const request = store.add({content: content})
-    return await request
+    const request = store.put({id: 1, content: content})
 };
 
 // TODO: Add logic for a method that gets all the content from the database
@@ -26,8 +25,12 @@ export const getDb = async () => {
     const jate = await openDB('jate', 1)
     const transaction = jate.transaction('jate', 'readonly')
     const store = transaction.objectStore('jate')
-    const request = store.getAll()
-    return await request
+    const request = store.get(1)
+    if (!request.content) {
+        console.log('no contents found')
+    } else {
+        return await request.content
+    }
 };
 
 initdb();
