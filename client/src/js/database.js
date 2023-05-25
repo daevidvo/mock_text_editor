@@ -18,6 +18,7 @@ export const putDb = async (content) => {
     const transaction = jate.transaction('jate', 'readwrite')
     const store = transaction.objectStore('jate')
     const request = store.add({content: content})
+    return await request
 };
 
 // TODO: Add logic for a method that gets all the content from the database
